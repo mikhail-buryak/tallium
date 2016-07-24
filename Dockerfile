@@ -58,7 +58,6 @@ RUN npm install
 COPY . /code/app
 
 CMD ["../startup.sh"]
-CMD [ "npm", "start" ]
 
 EXPOSE 8080
 
