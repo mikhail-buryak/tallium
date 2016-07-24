@@ -7,7 +7,11 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/lumen-framework": "5.2.*",
-        "vlucas/phpdotenv": "~2.2"
+        "vlucas/phpdotenv": "~2.2",
+        "sl4mmer/phpcent":"dev-master",
+        "predis/predis": "^1.1",
+        "illuminate/redis": "5.2.*",
+        "yajra/laravel-datatables-oracle": "~6.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
