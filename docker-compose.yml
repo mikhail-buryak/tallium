@@ -5,14 +5,10 @@ web:
     - ".:/code"
   ports:
     - "80:80"
+    - "8080:8080"
   links:
     - postgres
     - redis
-
-centrifugo:
-  image: centrifugo/centrifugo
-  ports:
-    - "8000:8000"
 
 postgres:
   image: jcalazan/postgresql

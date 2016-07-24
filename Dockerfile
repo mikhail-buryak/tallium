@@ -2,7 +2,7 @@ FROM ubuntu:15.04
 
 RUN apt-get update
 RUN apt-get install -y software-properties-common
-RUN apt-get install -y nginx curl ruby libnotify-bin
+RUN apt-get install -y nginx curl nodejs npm ruby libnotify-bin
 RUN apt-get install -y php5-fpm php5-mcrypt php5-pgsql php5-curl
 
 # Configure Nginx
@@ -50,4 +50,15 @@ RUN useradd -d /code/app -u 1000 www && \
 # Create app directory
 RUN mkdir -p /usr/src/app
 
+# Install app dependencies
+COPY app/node/package.json /code/app
+RUN npm install
+
+# Bundle app source
+COPY . /code/app
+
 CMD ["../startup.sh"]
+CMD [ "npm", "start" ]
+
+EXPOSE 8080
+
