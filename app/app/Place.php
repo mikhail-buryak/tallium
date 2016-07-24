@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Redis as Redis;
-use App\Booking;
 
 class Place extends Model
 {

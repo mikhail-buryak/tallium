@@ -14,3 +14,8 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+$app->group(['prefix' => 'places', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
+    $app->get('/', 'PlacesController@getPlaces');
+    $app->get('/unbooking', 'PlacesController@getUnBookingPlaces');
+});
