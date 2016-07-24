@@ -19,3 +19,10 @@ $app->group(['prefix' => 'places', 'namespace' => 'App\Http\Controllers'], funct
     $app->get('/', 'PlacesController@getPlaces');
     $app->get('/unbooking', 'PlacesController@getUnBookingPlaces');
 });
+
+$app->group(['prefix' => 'booking', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
+    $app->get('/fire', 'BookingController@getFire');
+    $app->get('{id}', 'BookingController@getBooking');
+    $app->post('/{id}', 'BookingController@postBooking');
+});
+

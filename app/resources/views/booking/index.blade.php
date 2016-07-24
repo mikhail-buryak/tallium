@@ -8,9 +8,11 @@
 @push('scripts')
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
 <script type="text/javascript">
 
     var place = { id: null, busyId: null };
+    var socket = io.connect('http://192.168.99.100:8080');
     var table = $('#places-table').DataTable({
         stateSave: true,
         processing: true,
@@ -34,6 +36,11 @@
                 });
             });
         }
+    });
+
+    socket.on('message', function (data) {
+        data = $.parseJSON(data);
+        setPlaceStatus(data.placeId, data.status);
     });
 
     function setPlaceStatus(placeId, status) {
@@ -69,7 +76,13 @@
 
             $('body').append($modal);
             $modal.load($this.attr('data-action'), function() { $modal.modal({ keyboard: true }) });
+            socket.emit('booking.process', {placeId: place.id});
             setPlaceStatus(place.id, 'process');
+        });
+
+        $('body').on('hidden.bs.modal', '#myModal', function () {
+            if(place.id != place.busyId)
+                socket.emit('booking.unprocess', {placeId: place.id});
         });
 
         $('body').on('submit', 'form#handleBooking', function(e) {
