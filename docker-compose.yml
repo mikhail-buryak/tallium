@@ -1,0 +1,29 @@
+web:
+  restart: always
+  build: .
+  volumes:
+    - ".:/code"
+  ports:
+    - "80:80"
+  links:
+    - postgres
+    - redis
+
+centrifugo:
+  image: centrifugo/centrifugo
+  ports:
+    - "8000:8000"
+
+postgres:
+  image: jcalazan/postgresql
+  environment:
+    - POSTGRESQL_DB=postgresql
+    - POSTGRESQL_USER=postgresql
+    - POSTGRESQL_PASSWORD=postgresql
+  ports:
+    - "5432:5432"
+
+redis:
+  image: redis:2.8
+  ports:
+    - "6379:6379"
